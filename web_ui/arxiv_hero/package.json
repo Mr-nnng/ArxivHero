@@ -1,0 +1,40 @@
+{
+  "name": "arxiv_hero",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@traptitech/markdown-it-katex": "^3.6.0",
+    "axios": "^1.9.0",
+    "dayjs": "^1.11.13",
+    "github-markdown-css": "^5.8.1",
+    "highlight.js": "^11.11.1",
+    "katex": "^0.16.22",
+    "markdown-it": "^14.1.0",
+    "markdown-it-katex": "^2.0.3",
+    "mathjax": "^3.2.2",
+    "pinia": "^3.0.2",
+    "pinia-plugin-persistedstate": "^4.3.0",
+    "qs": "^6.14.0",
+    "vue": "^3.5.13",
+    "vue-pdf-embed": "^2.1.2",
+    "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "@types/highlight.js": "^9.12.4",
+    "@types/markdown-it": "^14.1.2",
+    "@types/qs": "^6.9.18",
+    "@vitejs/plugin-vue": "^5.2.2",
+    "@vue/tsconfig": "^0.7.0",
+    "eslint": "^9.25.1",
+    "naive-ui": "^2.41.0",
+    "typescript": "~5.7.2",
+    "vite": "^6.3.1",
+    "vue-tsc": "^2.2.8"
+  }
+}
