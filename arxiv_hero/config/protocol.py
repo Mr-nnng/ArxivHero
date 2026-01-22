@@ -21,6 +21,17 @@ class MySQLConfig(BaseModel):
     database: str = "arxiv_hero"
 
 
+class SqliteConfig(BaseModel):
+    path: str = ".db/arxiv_hero.db"
+
+    @model_validator(mode="after")
+    def create_db_dir(self) -> "SqliteConfig":
+        if not os.path.exists(os.path.dirname(self.path)):
+            logger.warning(f"数据库目录不存在，创建目录：{os.path.dirname(self.path)}")
+            os.makedirs(os.path.dirname(self.path))
+        return self
+
+
 class ArxivConfig(BaseModel):
     categories: list[str]
     download_dir: str

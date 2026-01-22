@@ -7,7 +7,11 @@ model = "Qwen/Qwen2.5-7B-Instruct"
 max_retries = 3
 wait_time = 30                                                  # 被大模型服务拒绝后的等待时间，单位是秒
 
-# mysql数据库
+# sqlite数据库，推荐的默认配置，和mysql二选一即可
+[sqlite]
+path = ".db/arxiv_hero.db"
+
+# mysql数据库，如果两个都配置，会使用sqlite
 [mysql]
 host = "localhost"
 port = 3306

@@ -7,12 +7,18 @@ from arxiv_hero.models.article import Article
 from arxiv_hero.models.content import Content
 from arxiv_hero.models.history import History
 
-db_config = get_config().mysql
+db_config = get_config().sqlite or get_config().mysql
 
-# 使用 mysqlclient 驱动
-engine = create_engine(
-    f"mysql+mysqldb://{db_config.user}:{db_config.password}@{db_config.host}:{db_config.port}/{db_config.database}"
-)
+if get_config().sqlite:
+    # 使用 sqlite 驱动
+    engine = create_engine(f"sqlite:///{db_config.path}")
+elif get_config().mysql:
+    # 使用 mysqlclient 驱动
+    engine = create_engine(
+        f"mysql+mysqldb://{db_config.user}:{db_config.password}@{db_config.host}:{db_config.port}/{db_config.database}"
+    )
+else:
+    raise ValueError("数据库配置错误，请检查配置文件")
 
 # 创建表
 Base.metadata.create_all(engine)
