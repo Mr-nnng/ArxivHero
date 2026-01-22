@@ -9,3 +9,4 @@ tmp/
 .db/
 .data/
 .pytest_cache/
+.vite/
