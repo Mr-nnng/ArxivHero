@@ -1,0 +1,11 @@
+.vscode
+.env
+config.toml
+
+
+__pycache__/
+tmp/
+.logs/
+.db/
+.data/
+.pytest_cache/

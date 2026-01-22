@@ -1,0 +1,36 @@
+
+# 大模型基础配置
+[openai]
+api_key = "sk-xxx"
+base_url = "https://api.siliconflow.cn/v1"
+model = "Qwen/Qwen2.5-7B-Instruct"
+max_retries = 3
+wait_time = 30                                                  # 被大模型服务拒绝后的等待时间，单位是秒
+
+# sqlite数据库，推荐的默认配置，和mysql二选一即可
+[sqlite]
+path = ".db/arxiv_hero.db"
+
+# mysql数据库，如果两个都配置，会使用sqlite
+[mysql]
+host = "localhost"
+port = 3306
+user = "root"
+password = "xxx"        # 数据库密码
+database = "arxiv_hero"
+
+# arxiv配置
+[arxiv]
+categories = ["cs.AI"]            # 全部分类可见 "https://arxiv.org/category_taxonomy"
+only_primary = true               # true表示只检索主分类是“categories”中的文章
+download_dir = "./.data/articles"
+
+
+# 时区
+[timezone]
+timezone = "Asia/Shanghai"
+
+# 翻译配置
+[translate]
+max_retries = 3
+max_workers = 5
