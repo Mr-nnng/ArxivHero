@@ -125,7 +125,7 @@ yarn install
 
     # ❗重要，arxiv配置
     [arxiv]
-    categories = ["cs.AI"]            # 需要获取的分类，全部分类可见 "https://arxiv.org/category_taxonomy"
+    categories = ["cs.AI", "cs.CL"]   # 需要获取的分类，用","分隔的列表。全部分类可见 "https://arxiv.org/category_taxonomy"
     only_primary = true               # true表示只检索主分类是“categories”中的文章
     download_dir = "./.data/articles"
 
