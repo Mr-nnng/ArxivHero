@@ -7,6 +7,7 @@ import tarfile
 import pypandoc
 from PIL import Image
 
+from arxiv_hero import logger
 from arxiv_hero.services.content_services.protocol import (
     LatexMatched,
     LatexEnvMatched,
@@ -371,14 +372,10 @@ def parse_figure_block(latex_text: str) -> str:
         results.append(FigMetaData(note=caption, path=path.lstrip("./").lstrip(".")))
 
     # 2. 匹配 subfigure 环境（subcaption 包）
-    subfigure_env_pattern = re.compile(
-        r"\\begin\{subfigure\}.*?\\end\{subfigure\}", re.DOTALL
-    )
+    subfigure_env_pattern = re.compile(r"\\begin\{subfigure\}.*?\\end\{subfigure\}", re.DOTALL)
     for block in subfigure_env_pattern.findall(latex_text):
         # 本块中提取 includegraphics
-        inc_match = re.search(
-            r"\\includegraphics(?:\[[^\]]*\])?\{\s*(?P<path>[^}]+)\}", block, re.DOTALL
-        )
+        inc_match = re.search(r"\\includegraphics(?:\[[^\]]*\])?\{\s*(?P<path>[^}]+)\}", block, re.DOTALL)
         cap_match = re.search(r"\\caption\{(?P<caption>.*?)\}", block, re.DOTALL)
 
         if inc_match:
@@ -390,13 +387,9 @@ def parse_figure_block(latex_text: str) -> str:
         results.append(FigMetaData(note=caption, path=path.lstrip("./").lstrip(".")))
 
     # 3. 匹配 minipage + caption*（无编号子图）
-    minipage_env_pattern = re.compile(
-        r"\\begin\{minipage\}.*?\\end\{minipage\}", re.DOTALL
-    )
+    minipage_env_pattern = re.compile(r"\\begin\{minipage\}.*?\\end\{minipage\}", re.DOTALL)
     for block in minipage_env_pattern.findall(latex_text):
-        inc_match = re.search(
-            r"\\includegraphics(?:\[[^\]]*\])?\{\s*(?P<path>[^}]+)\}", block, re.DOTALL
-        )
+        inc_match = re.search(r"\\includegraphics(?:\[[^\]]*\])?\{\s*(?P<path>[^}]+)\}", block, re.DOTALL)
         capstar_match = re.search(r"\\caption\*\{(?P<caption>.*?)\}", block, re.DOTALL)
 
         if inc_match:
@@ -409,24 +402,18 @@ def parse_figure_block(latex_text: str) -> str:
 
     # 4. 如果上面都没有匹配到，回退到单独 includegraphics
     if not results:
-        include_pattern = re.compile(
-            r"\\includegraphics\s*(?:\[[^\]]*\])?\{\s*(?P<path>[^}]+)\s*\}", re.DOTALL
-        )
+        include_pattern = re.compile(r"\\includegraphics\s*(?:\[[^\]]*\])?\{\s*(?P<path>[^}]+)\s*\}", re.DOTALL)
         for match in include_pattern.finditer(latex_text):
             path = match.group("path").strip()
             results.append(FigMetaData(path=path.lstrip("./").lstrip(".")))
 
     cache = []
     for item in results:
-        cache.append(
-            f"![]({item.path})\n\n{item.note}" if item.note else f"![]({item.path})"
-        )
+        cache.append(f"![]({item.path})\n\n{item.note}" if item.note else f"![]({item.path})")
     return "\n".join(cache)
 
 
-def get_env_by_index_path(
-    envs: list[LatexEnvMatched], index_path: list[int]
-) -> LatexEnvMatched:
+def get_env_by_index_path(envs: list[LatexEnvMatched], index_path: list[int]) -> LatexEnvMatched:
     env = envs[index_path[0]]
     for idx in index_path[1:]:
         env = env.sub_envs[idx]
@@ -438,15 +425,15 @@ def parse_table_block(table_env: LatexEnvMatched) -> str:
     for sub_env in table_env.sub_envs:
         if sub_env.type in ("tabular", "tabularx"):
             tabular = sub_env
+            break
     if not tabular:
-        raise ValueError("Table block does not contain tabular environment")
+        # raise ValueError("Table block does not contain tabular environment")
+        logger.warning("Table block does not contain tabular environment")
+        logger.debug(f"Table block content: {table_env.content}")
+        return table_env.content
 
     if tabular.command == "tabular":
-        table = (
-            trans_latex_to_markdown(tabular.content.replace("|", "\\|"))
-            .replace("\r\n", "\n")
-            .replace("\n\n", "\n")
-        )
+        table = trans_latex_to_markdown(tabular.content.replace("|", "\\|")).replace("\r\n", "\n").replace("\n\n", "\n")
         if not table.startswith("<div"):
             return table
 
@@ -457,14 +444,8 @@ def parse_table_block(table_env: LatexEnvMatched) -> str:
             continue
         body += line + "\n"
     num_columns = body.split("\\\\", 1)[0].count("&")
-    tabular_content = (
-        "\\begin{tabular}" + "{l" + "c" * num_columns + "}\n" + body + "\\end{tabular}"
-    )
-    table = (
-        trans_latex_to_markdown(tabular_content.replace("|", "\\|"))
-        .replace("\r\n", "\n")
-        .replace("\n\n", "\n")
-    )
+    tabular_content = "\\begin{tabular}" + "{l" + "c" * num_columns + "}\n" + body + "\\end{tabular}"
+    table = trans_latex_to_markdown(tabular_content.replace("|", "\\|")).replace("\r\n", "\n").replace("\n\n", "\n")
     if table.startswith("<div"):
         return f"```latex\n{tabular.content}\n```"
     return table
