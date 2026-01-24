@@ -58,7 +58,7 @@ ArxivHero/
 ├── tests/                          # 单元测试目录
 │   ├── test_chat_utils.py          # 翻译工具测试用例
 │   └── test_config.py              # 配置模块测试用例
-└── web_ui/                         # 前端代码目录
+└── web_ui/arxiv_hero/              # 前端代码目录
     ├── public/                     # 前端静态资源（图片、样式、字体）
     ├── src/                        # 前端源码（组件、路由、接口请求）
     │   ├── App.vue                 # Vue 根组件
