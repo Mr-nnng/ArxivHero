@@ -1,0 +1,15 @@
+APScheduler==3.11.0
+arxiv==2.2.0
+bibtexparser==1.4.3
+fastapi==0.128.0
+fitz==0.0.1.dev2
+fonttools==4.58.0
+loguru==0.7.3
+openai==2.15.0
+Pillow==12.1.0
+pydantic==2.12.5
+pypandoc==1.15
+pytz==2025.2
+SQLAlchemy==2.0.46
+toml==0.10.2
+uvicorn==0.40.0

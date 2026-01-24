@@ -1,5 +1,5 @@
 
-# 大模型基础配置
+# openai格式的大模型配置
 [openai]
 api_key = "sk-xxx"
 base_url = "https://api.siliconflow.cn/v1"
@@ -9,7 +9,7 @@ wait_time = 30                                                  # 被大模型�
 
 # sqlite数据库，推荐的默认配置，和mysql二选一即可
 [sqlite]
-path = ".db/arxiv_hero.db"
+path = ".db/arxiv_hero.db" # 存放路径
 
 # mysql数据库，如果两个都配置，会使用sqlite
 [mysql]
@@ -17,7 +17,7 @@ host = "localhost"
 port = 3306
 user = "root"
 password = "xxx"        # 数据库密码
-database = "arxiv_hero"
+database = "arxiv_hero" # 数据库表名
 
 # arxiv配置
 [arxiv]
@@ -32,5 +32,5 @@ timezone = "Asia/Shanghai"
 
 # 翻译配置
 [translate]
-max_retries = 3
-max_workers = 5
+max_retries = 3 # 失败后最大重试次数
+max_workers = 5 # 同时翻译文章的数量
