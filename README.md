@@ -1,7 +1,9 @@
 <div align="center">
-# ArxivHero
+<h1> ArxivHero </h1>
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.12-blue.svg?logo=python&logoColor=white)](https://www.python.org/downloads/release/python-3120/)
+[![Vue.js](https://img.shields.io/badge/Vue.js-3.x-brightgreen.svg?logo=vue.js&logoColor=white)](https://vuejs.org/)
 [![Stars](https://img.shields.io/github/stars/Mr-nnng/ArxivHero.svg)](https://github.com/Mr-nnng/ArxivHero)
 </div>
 
