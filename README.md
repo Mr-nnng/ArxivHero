@@ -30,7 +30,7 @@ ArxivHero/
 ├── .gitignore                      # Git 忽略规则配置
 ├── README.md                       # 仓库说明文档（本文）
 ├── config.toml.example             # 配置文件示例（需复制重命名为config.toml）
-├── main.py                         # 后端主程序入口
+├── main.py                         # 后端主程序入口，端口在这里修改
 ├── start.bat                       # Windows 一键启动脚本
 ├── requirements.txt                # 后端依赖清单
 ├── arxiv_hero/                     # 后端核心业务逻辑目录
@@ -132,7 +132,7 @@ yarn install
 ```
 
 ### 3. 配置项目参数
-1. 复制配置示例文件并命名为 `config.toml`：
+1. 复制后端配置示例文件并命名为 `config.toml`：
    - Windows 命令行：`copy config.toml.example config.toml`
    - Linux/Mac：`cp config.toml.example config.toml`
 2. 编辑 `config.toml` 文件，根据注释配置以下核心参数：
@@ -172,6 +172,13 @@ yarn install
     [translate]
     max_retries = 3 # 失败后最大重试次数
     max_workers = 5 # 同时翻译文章的数量
+   ```
+3. 复制前端环境变量示例文件并命名为 `.env`：
+   - Windows 命令行：`cd web_ui/arxiv_hero && copy .env.example .env`
+   - Linux/Mac：`cd web_ui/arxiv_hero && cp .env.example .env`
+4. 编辑 `.env` 文件，URL是python后端服务的地址，例如：
+   ```
+   VITE_API_BASE_URL=http://127.0.0.1:4587
    ```
 
 ### 4. 启动服务
