@@ -1,4 +1,10 @@
-# <center>ArxivHero</center>
+<div align="center">
+# ArxivHero
+
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Stars](https://img.shields.io/github/stars/Mr-nnng/ArxivHero.svg)](https://github.com/Mr-nnng/ArxivHero)
+</div>
+
 一款轻量、易用的 Arxiv 论文追踪与英译中翻译工具，旨在降低学术论文阅读门槛，帮助研究者快速获取 Arxiv 最新论文并查看中文翻译版本。
 
 ## 🌟 核心特性
@@ -186,6 +192,10 @@ yarn dev
    - 检查 `config.toml` 中翻译服务配置是否正确；
    - 确保网络通畅（翻译服务依赖网络）；
    - 部分论文内容过长可能导致翻译超时，可减少单次翻译篇幅。
+
+## 🚨 目前已知的BUG
+1. latex 解析问题：由于翻译时的源文本来自`.tex`格式的文件，作者能力有限，不能覆盖多样的格式，解析错误和遗漏难以避免，一些复杂的嵌套结构会以latex原文的样式展示，将来会逐步修复；
+2. 翻译问题：依赖大模型的能力，若该问题频繁发生，建议更换更强的大模型或者修改翻译的提示词(`./arxiv_hero/services/article_services/prompts.py`和`./arxiv_hero/services/content_services/prompts.py`文件)。
 
 ## 📄 许可证
 本项目采用 MIT 许可证开源，详情见 LICENSE 文件（若仓库未包含，可自行补充）。
