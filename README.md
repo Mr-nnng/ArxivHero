@@ -197,10 +197,10 @@ yarn dev
 
 ## 🚨 目前已知的BUG
 1. latex 解析问题：由于翻译时的源文本来自`.tex`格式的文件，作者能力有限，不能覆盖多样的格式，解析错误和遗漏难以避免，一些复杂的嵌套结构会以latex原文的样式展示，将来会逐步修复；
-2. 翻译问题：依赖大模型的能力，若该问题频繁发生，建议更换更强的大模型或者修改翻译的提示词(`./arxiv_hero/services/article_services/prompts.py`和`./arxiv_hero/services/content_services/prompts.py`文件)。
+2. 翻译问题：依赖大模型的能力，若该问题频繁发生，建议更换更强的大模型或者修改翻译的提示词(`./arxiv_hero/services/article_services/prompts.py`和`./arxiv_hero/services/content_services/prompts.py`)。
 
 ## 📄 许可证
-本项目采用 MIT 许可证开源，详情见 LICENSE 文件（若仓库未包含，可自行补充）。
+本项目采用 MIT 许可证开源，详情见 LICENSE 文件。
 
 ## 🙏 致谢
 - 感谢 Arxiv 提供的开放论文数据源；
