@@ -27,42 +27,76 @@
 ## 📂 仓库文件结构
 ```
 ArxivHero/
-├── .gitignore                   # Git 忽略规则配置
-├── README.md                    # 仓库说明文档（本文）
-├── config.toml.example          # 配置文件示例（需复制重命名为config.toml）
-├── main.py                      # 后端主程序入口
-├── start.bat                    # Windows 一键启动脚本
-├── requirements.txt             # 后端依赖清单
-├── arxiv_hero/                  # 后端核心业务逻辑目录
-│   ├── common/                  # 通用基础组件（如常量、枚举）
-│   ├── config/                  # 配置解析与加载模块
-│   ├── controllers/             # 接口控制层（处理前端请求）
-│   ├── models/                  # 数据模型（如论文、翻译结果）
-│   ├── repositories/            # 数据访问层（论文/翻译数据读写）
-│   |   ├── article_repository/  # 访问论文题目及摘要数据
-│   |   ├── content_repository/  # 访问论文正文数据
-│   |   └── history_repository/  # 访问阅读记录
-│   ├── services/                # 核心服务层（论文获取、翻译、追踪）
-│   |   ├── article_services/    # 获取和翻译论文题目及摘要
-│   |   |   ├── fetcher.py       # 从 arxiv 获取论文
-│   |   |   ├── prompts.py       # 翻译论文题目和摘要的提示词，可自行修改
-│   |   |   └── translator.py    # 翻译论文题目和摘要
-│   |   └── content_services/    # 获取和翻译论文正文
-│   |   |   ├── latex_parser.py  # 解析 .tex 格式的文章正文
-│   |   |   ├── processor.py     # 下载、翻译正文
-│   |   |   ├── prompts.py       # 翻译论文正文的提示词，可自行修改
-│   |   |   ├── protocol.py      # content_services 中使用的数据类
-│   |   |   ├── translator.py    # 翻译正文，供 processor 调用
-│   |   |   └── utils.py         # 辅助工具
-│   └── utils/                   # 公共工具函数（大模型交互、多线程）
-├── tests/                       # 单元测试目录
-│   ├── test_chat_utils.py       # 翻译工具测试用例
-│   └── test_config.py           # 配置模块测试用例
-└── web_ui/                      # 前端代码目录
-    ├── public/                  # 前端静态资源（图片、样式、字体）
-    ├── src/                     # 前端源码（组件、路由、接口请求）
-    ├── package.json             # 前端依赖清单
-    └── vite.config.js           # 前端构建配置（示例，依实际框架调整）
+├── .gitignore                      # Git 忽略规则配置
+├── README.md                       # 仓库说明文档（本文）
+├── config.toml.example             # 配置文件示例（需复制重命名为config.toml）
+├── main.py                         # 后端主程序入口
+├── start.bat                       # Windows 一键启动脚本
+├── requirements.txt                # 后端依赖清单
+├── arxiv_hero/                     # 后端核心业务逻辑目录
+│   ├── common/                     # 通用基础组件（如常量、枚举）
+│   ├── config/                     # 配置解析与加载模块
+│   ├── controllers/                # 接口控制层（处理前端请求）
+│   ├── models/                     # 数据模型（如论文、翻译结果）
+│   ├── repositories/               # 数据访问层（论文/翻译数据读写）
+│   |   ├── article_repository/     # 访问论文题目及摘要数据
+│   |   ├── content_repository/     # 访问论文正文数据
+│   |   └── history_repository/     # 访问阅读记录
+│   ├── services/                   # 核心服务层（论文获取、翻译、追踪）
+│   |   ├── article_services/       # 获取和翻译论文题目及摘要
+│   |   |   ├── fetcher.py          # 从 arxiv 获取论文
+│   |   |   ├── prompts.py          # 翻译论文题目和摘要的提示词，可自行修改
+│   |   |   └── translator.py       # 翻译论文题目和摘要
+│   |   └── content_services/       # 获取和翻译论文正文
+│   |   |   ├── latex_parser.py     # 解析 .tex 格式的文章正文
+│   |   |   ├── processor.py        # 下载、翻译正文
+│   |   |   ├── prompts.py          # 翻译论文正文的提示词，可自行修改
+│   |   |   ├── protocol.py         # content_services 中使用的数据类
+│   |   |   ├── translator.py       # 翻译正文，供 processor 调用
+│   |   |   └── utils.py            # 辅助工具
+│   └── utils/                      # 公共工具函数（大模型交互、多线程）
+├── tests/                          # 单元测试目录
+│   ├── test_chat_utils.py          # 翻译工具测试用例
+│   └── test_config.py              # 配置模块测试用例
+└── web_ui/                         # 前端代码目录
+    ├── public/                     # 前端静态资源（图片、样式、字体）
+    ├── src/                        # 前端源码（组件、路由、接口请求）
+    │   ├── App.vue                 # Vue 根组件
+    │   ├── interfaces.ts           # TypeScript 接口定义
+    │   ├── main.ts                 # Vue 应用入口
+    │   ├── style.css               # 全局样式
+    │   ├── vite-env.d.ts           # Vite 环境类型声明
+    │   ├── assets/                 # 静态资源目录
+    │   ├── components/             # Vue 组件目录
+    │   │   ├── AddArticle.vue      # 添加论文组件
+    │   │   ├── ArticleCard.vue     # 论文卡片组件
+    │   │   ├── ArticleList.vue     # 论文列表组件
+    │   │   ├── Calendar.vue        # 日历组件（阅读统计）
+    │   │   ├── ContentViewer.vue   # 正文查看器组件
+    │   │   ├── Header.vue          # 页面头部组件
+    │   │   ├── HistoryList.vue     # 阅读历史列表组件
+    │   │   ├── MarkdownRender.vue  # Markdown 渲染组件
+    │   │   └── TranslateView.vue   # 翻译视图组件
+    │   ├── pages/                  # 页面组件目录
+    │   │   ├── Article.vue         # 论文详情页面
+    │   │   ├── Content.vue         # 论文正文页面
+    │   │   └── Home.vue            # 首页   
+    │   ├── router/                 # 路由配置目录
+    │   │   └── index.ts            # 路由配置
+    │   ├── services/               # 前端服务层（API 请求）
+    │   │   ├── article.ts          # 论文相关 API
+    │   │   ├── content.ts          # 论文正文相关 API
+    │   │   └── history.ts          # 阅读历史相关 API
+    │   ├── stores/                 # 状态管理目录
+    │   │   └── useSearchStore.ts   # 搜索状态管理
+    │   └── utils/                  # 前端工具函数
+    │       ├── checker.ts          # 校验工具
+    │       ├── markdownRender.ts   # Markdown 渲染工具
+    │       ├── request.ts          # HTTP 请求封装
+    │       ├── stream.ts           # 流式处理工具
+    │       └── tools.ts            # 通用工具函数
+    ├── package.json                # 前端依赖清单
+    └── vite.config.js              # 前端构建配置（示例，依实际框架调整）
 ```
 
 ## 🚀 使用说明
